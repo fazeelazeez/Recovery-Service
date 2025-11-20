@@ -30,7 +30,7 @@
     <!-- Shield Favicon -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z'/%3E%3Cpath d='M12 3.19L5 6.3V11c0 4.52 2.98 8.69 7 9.93 4.02-1.24 7-5.41 7-9.93V6.3l-7-3.11z' fill='%23ffffff'/%3E%3Cpath d='M12 7L12 17' stroke='%232563eb' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
 
-    <!-- Structured Data (JSON-LD) for Local Business/Service -->
+    <!-- Structured Data: Professional Service (Global) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -53,10 +53,60 @@
       },
       "priceRange": "$300",
       "description": "Professional consultant specializing in the recovery of hijacked YouTube channels and compromised Google accounts.",
-      "areaServed": "Worldwide",
+      "areaServed": ["United States", "United Kingdom", "Canada", "United Arab Emirates", "India", "Australia"],
       "sameAs": [
         "https://www.linkedin.com/in/fazeelazeez",
         "https://twitter.com/fazeelazeez"
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQ Page (Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is it guaranteed that my channel will be recovered?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "While we have a very high success rate (300+ recoveries), no service can guarantee 100% results as the final decision lies with Google/YouTube internal teams. However, we ensure your case is presented through the correct certified escalation paths."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to pay anything upfront?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Our standard recovery service works on a strict 'No Fix, No Fee' basis. You only pay the $300 success fee once your account access is fully restored."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does the recovery process take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Initial assessment takes 24 hours. Most simple hacks are resolved within 2-4 business days. Complex cases involving ownership disputes can take up to 2 weeks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my personal data safe with you?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. We operate under strict non-disclosure agreements. We do NOT require your password to start the process, only technical details like URLs and dates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "My AdSense was disabled due to the hacker. Can you fix it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Once we prove the account was compromised, we can appeal the AdSense ban by showing that the policy violations occurred during the hijack period."
+          }
+        }
       ]
     }
     </script>
@@ -101,19 +151,18 @@
         }
       }
     </script>
-  <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
     "vite": "https://aistudiocdn.com/vite@^7.2.4",
     "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body class="bg-brand-900 text-slate-300 antialiased selection:bg-brand-accent selection:text-brand-900">
     <div id="root"></div>
