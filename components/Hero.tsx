@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ShieldCheck, Clock, Lock, CheckCircle2, ArrowRight } from 'lucide-react';
 
@@ -24,8 +23,8 @@ export const Hero: React.FC = () => {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
           
-          {/* Text Content - Center Aligned on ALL screens */}
-          <div className="flex-1 text-center">
+          {/* Text Content - Center Mobile, Left Desktop */}
+          <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-brand-800/80 border border-brand-700/50 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm shadow-lg shadow-black/20">
               <ShieldCheck className="w-4 h-4 text-brand-accent" />
               <span className="text-xs font-medium text-slate-300 uppercase tracking-wide">Verified Recovery Specialist</span>
@@ -42,12 +41,12 @@ export const Hero: React.FC = () => {
               Music Tech Consultant · Digital Account Recovery Specialist
             </p>
             
-            <p className="text-slate-400 text-sm font-semibold mb-8 flex items-center justify-center gap-2">
+            <p className="text-slate-400 text-sm font-semibold mb-8 flex items-center justify-center lg:justify-start gap-2">
               <Clock className="w-4 h-4 text-brand-accent" />
               Contact within 2–3 days for best recovery success.
             </p>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
               <a 
                 href="#recovery-form" 
                 onClick={scrollToRecovery}
@@ -66,8 +65,8 @@ export const Hero: React.FC = () => {
               </a>
             </div>
 
-            {/* Trust Indicators - Center Aligned */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm text-slate-400 font-medium border-t border-white/5 pt-6">
+            {/* Trust Indicators - Center Mobile, Left Desktop */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-slate-400 font-medium border-t border-white/5 pt-6">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-brand-accent" />
                 <span>300+ Recoveries</span>

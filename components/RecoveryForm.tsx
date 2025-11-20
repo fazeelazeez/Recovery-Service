@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Send, AlertTriangle, Check, MapPin, X } from 'lucide-react';
 import { RecoveryFormData } from '../types';
@@ -113,12 +112,13 @@ ${data.previousAttempts}
 
       // 1. Admin Email Payload
       const adminParams = {
-        to_name: "Fazeel",
+        to_name: data.fullName, // Map Client Name for the Admin Dashboard summary
         to_email: ADMIN_EMAIL, 
-        email: ADMIN_EMAIL,    
+        email: ADMIN_EMAIL, // Force delivery to Admin
+        recipient: ADMIN_EMAIL, 
         
         client_email: data.email, 
-        name: data.fullName, // Added for Admin Card
+        name: data.fullName,
         phone: data.whatsapp || "Not Provided",
         title: "New Recovery Form Submission",
         
@@ -130,7 +130,7 @@ ${data.previousAttempts}
       // 2. Client Email Payload
       const clientParams = {
         to_name: data.fullName,
-        from_name: "Fazeel Azeez Team",
+        from_name: "Fazeel Azeez", // Removed 'Team'
         
         to_email: data.email,
         email: data.email, 
