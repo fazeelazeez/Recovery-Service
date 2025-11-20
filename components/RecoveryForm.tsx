@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Send, AlertTriangle, Check, MapPin } from 'lucide-react';
+import { Send, AlertTriangle, Check, MapPin, X } from 'lucide-react';
 import { RecoveryFormData } from '../types';
 
 const initialData: RecoveryFormData = {
@@ -55,79 +55,137 @@ export const RecoveryForm: React.FC = () => {
     setData(prev => ({ ...prev, consent: e.target.checked }));
   };
 
+  const closePopup = () => {
+    setStatus('idle');
+    setData(initialData);
+    setErrorMessage('');
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('submitting');
     setErrorMessage('');
-    
+
+    // -----------------------------------------------------------
+    // EMAILJS CONFIGURATION
+    // -----------------------------------------------------------
+    const SERVICE_ID = "service_hyaya34";
+    const PUBLIC_KEY = "MGimM5hOd76G-Fcw7";
+    const ADMIN_EMAIL = "fazeelazeez.in@gmail.com";
+
+    // TEMPLATE 1: For the Client (Beautiful Welcome Message)
+    const CLIENT_TEMPLATE_ID = "template_25e8ta2";
+
+    // TEMPLATE 2: For the Admin (Raw Data Dump)
+    const ADMIN_TEMPLATE_ID = "template_on64o7u"; 
+
     try {
-      // Use FormData(event.target) exactly like the Web3Forms example
-      // This captures inputs directly from the DOM, which is very robust
-      const formData = new FormData(e.currentTarget);
+      // Format the Data Dump for the Admin (Terminal Style)
+      const dataDump = `
+NAME: ${data.fullName}
+EMAIL: ${data.email}
+WHATSAPP: ${data.whatsapp}
+LOC: ${data.currentLocation} (${data.country})
+
+--- ACCOUNT ---
+URL: ${data.channelUrl}
+HANDLE: ${data.channelHandle}
+HIJACKED: ${data.accountEmail}
+RECOVERY: ${data.recoveryEmail}
+
+--- INCIDENT ---
+DATE: ${data.hijackDateTime}
+HIJACK_LOC: ${data.hijackLocation}
+
+--- PROOF ---
+${data.videoLinks}
+
+--- TECH ---
+DEVICE: ${data.signingDevice}
+IP: ${data.ipAddress}
+PHONE_END: **${data.linkedPhone}
+BACKUP_CODES: ${data.backupCodes}
+LAST_LOGIN: ${data.lastLogin}
+
+--- HISTORY ---
+${data.previousAttempts}
+`;
+
+      // 1. Admin Email Payload
+      const adminParams = {
+        to_name: "Fazeel",
+        to_email: ADMIN_EMAIL, 
+        email: ADMIN_EMAIL,    
+        
+        client_email: data.email, 
+        name: data.fullName, // Added for Admin Card
+        phone: data.whatsapp || "Not Provided",
+        title: "New Recovery Form Submission",
+        
+        admin_payload: dataDump, 
+        
+        reply_to: data.email
+      };
+
+      // 2. Client Email Payload
+      const clientParams = {
+        to_name: data.fullName,
+        from_name: "Fazeel Azeez Team",
+        
+        to_email: data.email,
+        email: data.email, 
+        
+        reply_to: ADMIN_EMAIL,
+        title: "Recovery Request Received"
+      };
+
+      // API Call 1: Send to Admin
+      const adminRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: SERVICE_ID,
+          template_id: ADMIN_TEMPLATE_ID,
+          user_id: PUBLIC_KEY,
+          template_params: adminParams,
+        }),
+      });
       
-      // Append API Configuration
-      formData.append("access_key", "7f44139b-a8b3-40e9-9dbe-044a22a491df");
-      formData.append("subject", `New Recovery Request from ${data.fullName}`);
-      formData.append("from_name", "Fazeel Recovery Site");
-      formData.append("botcheck", ""); // Honeypot for spam
-      
-      // Improve readability of the Consent checkbox in the email
-      if (formData.get('consent')) {
-        formData.set('consent', 'Yes, User Agreed to Privacy Policy');
+      if (!adminRes.ok) {
+        const errorText = await adminRes.text();
+        console.error("Admin email failed", errorText);
       }
 
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData
+      // API Call 2: Send to Client
+      const clientRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          service_id: SERVICE_ID,
+          template_id: CLIENT_TEMPLATE_ID,
+          user_id: PUBLIC_KEY,
+          template_params: clientParams,
+        }),
       });
 
-      const result = await response.json();
-
-      if (result.success) {
-        setStatus('success');
-        console.log("Success:", result);
-      } else {
-        console.error("Submission Error:", result);
-        setErrorMessage(result.message || "Could not send form. Please try again.");
-        setStatus('error');
+      if (!clientRes.ok) {
+        const errorText = await clientRes.text();
+        console.error("Client email failed", errorText);
+        if (!adminRes.ok) throw new Error(errorText);
       }
+
+      // Update UI to success state
+      setStatus('success');
+
     } catch (error: any) {
-      console.error("Network/System Error:", error);
-      setErrorMessage("Network connection error. Please try again.");
+      console.error("EmailJS Error:", error);
+      setErrorMessage("Error submitting form. Please try again.");
       setStatus('error');
     }
   };
 
-  if (status === 'success') {
-    return (
-      <section id="recovery-form" className="py-20 bg-brand-800/30 scroll-mt-28">
-        <div className="container mx-auto px-4 max-w-2xl">
-          <div className="bg-brand-900 border border-brand-accent/30 rounded-3xl p-10 text-center shadow-2xl">
-            <div className="w-20 h-20 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Check className="w-10 h-10 text-brand-accent" />
-            </div>
-            <h2 className="text-2xl font-bold text-white mb-4">Request Sent Successfully</h2>
-            <p className="text-slate-400 mb-8">
-              Our team is reviewing your case. We will contact you shortly via the email or WhatsApp number provided.
-            </p>
-            <button 
-              onClick={() => {
-                setStatus('idle'); 
-                setData(initialData);
-                setErrorMessage('');
-              }} 
-              className="bg-brand-800 hover:bg-brand-700 text-white px-6 py-2 rounded-lg text-sm font-medium transition-colors"
-            >
-              Submit Another Request
-            </button>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section id="recovery-form" className="py-20 bg-brand-800/30 scroll-mt-28">
+    <section id="recovery-form" className="py-20 bg-brand-800/30 scroll-mt-28 relative">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-brand-blue/10 text-brand-blue px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider mb-4">
@@ -300,6 +358,36 @@ export const RecoveryForm: React.FC = () => {
           <p className="text-center text-xs text-slate-500 mt-4">Secure SSL Encryption. We never share your data.</p>
         </form>
       </div>
+
+      {/* SUCCESS POPUP MODAL */}
+      {status === 'success' && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4 animate-fadeIn">
+          <div className="absolute inset-0 bg-black/90 backdrop-blur-sm" onClick={closePopup}></div>
+          <div className="bg-brand-900 border border-brand-accent/30 rounded-3xl p-8 md:p-12 max-w-lg w-full relative z-10 shadow-2xl transform scale-100 transition-transform">
+            <button onClick={closePopup} className="absolute top-4 right-4 text-slate-500 hover:text-white">
+              <X className="w-6 h-6" />
+            </button>
+            
+            <div className="w-20 h-20 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
+              <Check className="w-10 h-10 text-brand-accent" />
+            </div>
+            
+            <h2 className="text-2xl font-bold text-white mb-4 text-center">Request Sent Successfully</h2>
+            <p className="text-slate-400 mb-8 text-center leading-relaxed">
+              Thank you, {data.fullName}. Our team is reviewing your case details. 
+              <br/><br/>
+              We will contact you shortly via the email <strong>{data.email}</strong> or WhatsApp number provided.
+            </p>
+            
+            <button 
+              onClick={closePopup} 
+              className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white px-6 py-3 rounded-xl text-base font-bold transition-colors"
+            >
+              Close & Return to Site
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
