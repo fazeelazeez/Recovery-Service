@@ -7,13 +7,6 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ openLegal }) => {
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
-
   return (
     <footer className="bg-black py-16 border-t border-brand-900 font-sans">
       <div className="container mx-auto px-4 md:px-6">
