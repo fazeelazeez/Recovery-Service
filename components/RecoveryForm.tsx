@@ -61,26 +61,27 @@ export const RecoveryForm: React.FC = () => {
     setErrorMessage('');
     
     try {
+      // Create FormData object (Multipart)
+      // This is more robust than JSON for avoiding "Security Error" triggers on Vercel
       const formData = new FormData();
-      // Updated Access Key
+      
+      // Your Web3Forms Access Key
       formData.append("access_key", "7f44139b-a8b3-40e9-9dbe-044a22a491df");
-      formData.append("subject", `New Recovery Request: ${data.fullName} from ${data.country}`);
-      formData.append("from_name", "Fazeel Azeez Recovery Site");
-      formData.append("botcheck", ""); 
-
-      (Object.keys(data) as Array<keyof RecoveryFormData>).forEach((key) => {
-        if (key === 'consent') {
-          formData.append(key, data[key] ? "Yes" : "No");
-        } else {
-          formData.append(key, String(data[key]));
-        }
+      
+      // Append all fields
+      Object.entries(data).forEach(([key, value]) => {
+        // Convert boolean consent to string
+        const val = key === 'consent' ? (value ? "Yes" : "No") : value;
+        formData.append(key, val as string);
       });
+
+      // Config fields
+      formData.append("subject", `New Recovery Request: ${data.fullName}`);
+      formData.append("from_name", "Fazeel Recovery Site");
+      formData.append("botcheck", ""); // Honeypot field
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: {
-            'Accept': 'application/json'
-        },
         body: formData
       });
 
@@ -91,17 +92,12 @@ export const RecoveryForm: React.FC = () => {
         console.log("Success:", result);
       } else {
         console.error("Submission Error:", result);
-        // Check for domain mismatch specifically
-        if (result.message && result.message.includes("domain")) {
-             setErrorMessage("Security Error: Domain mismatch. Please ensure the Access Key matches your website domain.");
-        } else {
-             setErrorMessage(result.message || "An error occurred. Please try again.");
-        }
+        setErrorMessage(result.message || "Could not send form. Please try again.");
         setStatus('error');
       }
     } catch (error: any) {
       console.error("Network/System Error:", error);
-      setErrorMessage(error.message || "Network error. Please check your internet connection.");
+      setErrorMessage("Network connection error. Please try again.");
       setStatus('error');
     }
   };
@@ -114,7 +110,7 @@ export const RecoveryForm: React.FC = () => {
             <div className="w-20 h-20 bg-brand-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Check className="w-10 h-10 text-brand-accent" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">We received your details.</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Request Sent Successfully</h2>
             <p className="text-slate-400 mb-8">
               Our team is reviewing your case. We will contact you shortly via the email or WhatsApp number provided.
             </p>
