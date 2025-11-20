@@ -62,7 +62,8 @@ export const RecoveryForm: React.FC = () => {
     
     try {
       const formData = new FormData();
-      formData.append("access_key", "ecd208fd-3c99-43c0-b2cc-9fc158a3bba7");
+      // Updated Access Key
+      formData.append("access_key", "7f44139b-a8b3-40e9-9dbe-044a22a491df");
       formData.append("subject", `New Recovery Request: ${data.fullName} from ${data.country}`);
       formData.append("from_name", "Fazeel Azeez Recovery Site");
       formData.append("botcheck", ""); 
@@ -77,6 +78,9 @@ export const RecoveryForm: React.FC = () => {
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
+        headers: {
+            'Accept': 'application/json'
+        },
         body: formData
       });
 
@@ -87,7 +91,12 @@ export const RecoveryForm: React.FC = () => {
         console.log("Success:", result);
       } else {
         console.error("Submission Error:", result);
-        setErrorMessage(result.message || "An error occurred. Please try again.");
+        // Check for domain mismatch specifically
+        if (result.message && result.message.includes("domain")) {
+             setErrorMessage("Security Error: Domain mismatch. Please ensure the Access Key matches your website domain.");
+        } else {
+             setErrorMessage(result.message || "An error occurred. Please try again.");
+        }
         setStatus('error');
       }
     } catch (error: any) {
