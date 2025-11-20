@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { ShieldCheck, Clock, Lock, CheckCircle2, ArrowRight } from 'lucide-react';
 
@@ -25,13 +26,16 @@ export const Hero: React.FC = () => {
           
           {/* Text Content */}
           <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 bg-brand-800/80 border border-brand-700/50 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
+            <div className="inline-flex items-center gap-2 bg-brand-800/80 border border-brand-700/50 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm shadow-lg shadow-black/20">
               <ShieldCheck className="w-4 h-4 text-brand-accent" />
               <span className="text-xs font-medium text-slate-300 uppercase tracking-wide">Verified Recovery Specialist</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white leading-[1.1] mb-6">
-              Recover Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-accent">YouTube or Google Account</span> <br /> Fast & Secure.
+              Recover Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-brand-accent">YouTube or Google Account</span> <br />
+              <span className="relative inline-block">
+                <span className="relative z-10">Fast & Secure</span>
+              </span>
             </h1>
             
             <p className="text-lg text-slate-400 mb-2 font-medium">
@@ -47,7 +51,7 @@ export const Hero: React.FC = () => {
               <a 
                 href="#recovery-form" 
                 onClick={scrollToRecovery}
-                className="w-full sm:w-auto px-8 py-4 bg-brand-blue hover:bg-brand-blue/90 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-brand-blue/25 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-brand-blue to-brand-accent hover:opacity-90 text-white rounded-xl font-bold text-lg transition-all shadow-lg shadow-brand-blue/25 flex items-center justify-center gap-2 transform hover:-translate-y-0.5"
               >
                 Start Recovery
                 <ArrowRight className="w-5 h-5" />
@@ -56,14 +60,14 @@ export const Hero: React.FC = () => {
                 href="https://wa.me/917012402241" 
                 target="_blank"
                 rel="noreferrer"
-                className="w-full sm:w-auto px-8 py-4 bg-brand-800 hover:bg-brand-700 text-white border border-brand-700 rounded-xl font-medium text-lg transition-all flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/10 text-white rounded-xl font-medium text-lg transition-all flex items-center justify-center gap-2 shadow-lg"
               >
                 WhatsApp Enquiry
               </a>
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 text-sm text-slate-400 font-medium">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-slate-400 font-medium border-t border-white/5 pt-6">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-brand-accent" />
                 <span>300+ Recoveries</span>
@@ -84,6 +88,10 @@ export const Hero: React.FC = () => {
             <div className="relative aspect-square md:aspect-[4/3] rounded-3xl bg-gradient-to-br from-brand-800 to-brand-900 border border-brand-700/50 p-8 shadow-2xl flex items-center justify-center overflow-hidden group">
                {/* Abstract Illustration */}
                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/circuit-board.png')] opacity-5"></div>
+               
+               {/* Animated Glow */}
+               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-brand-blue/20 rounded-full blur-3xl animate-pulse"></div>
+
                <div className="relative z-10 grid grid-cols-2 gap-6 w-full max-w-sm">
                   <div className="bg-brand-900/80 backdrop-blur-xl p-6 rounded-2xl border border-brand-700 shadow-xl transform group-hover:-translate-y-2 transition-transform duration-500">
                     <div className="w-12 h-12 bg-brand-accent/10 rounded-full flex items-center justify-center mb-4">

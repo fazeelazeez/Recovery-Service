@@ -55,30 +55,26 @@ export const RecoveryForm: React.FC = () => {
     setData(prev => ({ ...prev, consent: e.target.checked }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus('submitting');
     setErrorMessage('');
     
     try {
-      // Create FormData object (Multipart)
-      // This is more robust than JSON for avoiding "Security Error" triggers on Vercel
-      const formData = new FormData();
+      // Use FormData(event.target) exactly like the Web3Forms example
+      // This captures inputs directly from the DOM, which is very robust
+      const formData = new FormData(e.currentTarget);
       
-      // Your Web3Forms Access Key
+      // Append API Configuration
       formData.append("access_key", "7f44139b-a8b3-40e9-9dbe-044a22a491df");
-      
-      // Append all fields
-      Object.entries(data).forEach(([key, value]) => {
-        // Convert boolean consent to string
-        const val = key === 'consent' ? (value ? "Yes" : "No") : value;
-        formData.append(key, val as string);
-      });
-
-      // Config fields
-      formData.append("subject", `New Recovery Request: ${data.fullName}`);
+      formData.append("subject", `New Recovery Request from ${data.fullName}`);
       formData.append("from_name", "Fazeel Recovery Site");
-      formData.append("botcheck", ""); // Honeypot field
+      formData.append("botcheck", ""); // Honeypot for spam
+      
+      // Improve readability of the Consent checkbox in the email
+      if (formData.get('consent')) {
+        formData.set('consent', 'Yes, User Agreed to Privacy Policy');
+      }
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -283,7 +279,7 @@ export const RecoveryForm: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-3 mb-8">
-             <input type="checkbox" id="consent" required checked={data.consent} onChange={handleCheckbox} className="w-5 h-5 rounded border-brand-700 bg-brand-800 text-brand-blue focus:ring-brand-blue/50" />
+             <input type="checkbox" name="consent" id="consent" required checked={data.consent} onChange={handleCheckbox} className="w-5 h-5 rounded border-brand-700 bg-brand-800 text-brand-blue focus:ring-brand-blue/50" />
              <label htmlFor="consent" className="text-slate-400 text-sm cursor-pointer select-none">I agree to the Privacy Policy and authorize the recovery attempt.</label>
           </div>
 

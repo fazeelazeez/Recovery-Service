@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Shield, Lock } from 'lucide-react';
 import { Hero } from './components/Hero';
@@ -10,6 +11,9 @@ import { Testimonials } from './components/Testimonials';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { LegalModal } from './components/LegalModal';
+import { AiChatWidget } from './components/AiChatWidget';
+import { FAQ } from './components/FAQ';
+import { BackToTop } from './components/BackToTop';
 
 const App: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -123,12 +127,17 @@ const App: React.FC = () => {
         <Process />
         <RecoveryForm />
         <Pricing />
+        <FAQ />
         <Testimonials />
         <Contact />
       </main>
 
       {/* Footer */}
       <Footer openLegal={(type) => setActiveLegalModal(type)} />
+
+      {/* Floating Elements */}
+      <AiChatWidget />
+      <BackToTop />
 
       {/* Legal Modals */}
       {activeLegalModal && (

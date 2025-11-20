@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Phone, Mail, MapPin, ExternalLink } from 'lucide-react';
 
@@ -25,13 +26,13 @@ export const Contact: React.FC = () => {
                 </div>
               </a>
               
-              <a href="mailto:support@fazeelazeez.in" className="flex items-center gap-4 bg-brand-800/50 p-4 rounded-xl hover:bg-brand-800 transition-colors group border border-brand-700/50">
+              <a href="mailto:fazeelazeez.in@gmail.com" className="flex items-center gap-4 bg-brand-800/50 p-4 rounded-xl hover:bg-brand-800 transition-colors group border border-brand-700/50">
                 <div className="w-12 h-12 bg-brand-900 rounded-full flex items-center justify-center border border-brand-700 group-hover:border-brand-blue transition-colors">
                   <Mail className="w-6 h-6 text-slate-400 group-hover:text-brand-blue" />
                 </div>
                 <div>
                   <h3 className="text-white font-bold">Email Support</h3>
-                  <p className="text-slate-400 text-sm">support@fazeelazeez.in</p>
+                  <p className="text-slate-400 text-sm">fazeelazeez.in@gmail.com</p>
                 </div>
               </a>
 
