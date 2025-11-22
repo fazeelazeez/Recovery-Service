@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, X, Send, Bot, FileText } from 'lucide-react';
 
@@ -125,10 +126,10 @@ export const AiChatWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end font-sans">
+    <div className="fixed bottom-6 right-6 z-[60] flex flex-col items-end font-sans pointer-events-none">
       
       {/* Chat Window */}
-      <div className={`transition-all duration-300 origin-bottom-right transform ${isOpen ? 'scale-100 opacity-100 translate-y-0' : 'scale-95 opacity-0 translate-y-10 pointer-events-none'} mb-4 w-[350px] max-w-[calc(100vw-48px)] bg-brand-900 border border-brand-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col`}>
+      <div className={`transition-all duration-300 origin-bottom-right transform ${isOpen ? 'scale-100 opacity-100 translate-y-0 pointer-events-auto' : 'scale-95 opacity-0 translate-y-10 pointer-events-none'} mb-4 w-[350px] max-w-[calc(100vw-48px)] bg-brand-900 border border-brand-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col`}>
         
         {/* Header */}
         <div className="bg-brand-800 p-4 flex items-center justify-between border-b border-brand-700">
@@ -204,7 +205,7 @@ export const AiChatWidget: React.FC = () => {
       </div>
 
       {/* Toggle Button with Tooltip */}
-      <div className="relative group">
+      <div className="relative group pointer-events-auto">
         {/* Tooltip */}
         <div className={`absolute right-20 top-1/2 -translate-y-1/2 bg-white text-brand-900 text-sm font-bold px-4 py-2 rounded-lg shadow-xl transition-all duration-300 ${isOpen ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-0 group-hover:opacity-100 scale-100'}`}>
           Need Recovery Help?
