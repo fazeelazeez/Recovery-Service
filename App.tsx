@@ -89,8 +89,8 @@ const App: React.FC = () => {
           </button>
         </div>
 
-        {/* Mobile Nav Overlay */}
-        <div className={`fixed inset-0 bg-brand-900/98 z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300 ${isMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        {/* Mobile Nav Overlay - Fixed Background visibility and Hit Testing */}
+        <div className={`fixed inset-0 bg-[#0f172a]/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
           {navLinks.map((link) => (
             <a 
               key={link.name} 
