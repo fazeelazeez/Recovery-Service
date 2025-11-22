@@ -1,4 +1,5 @@
 
+
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Shield, Lock } from 'lucide-react';
 import { Hero } from './components/Hero';
@@ -77,39 +78,39 @@ const App: React.FC = () => {
             <a 
               href="#recovery-form" 
               onClick={(e) => scrollToSection(e, 'recovery-form')}
-              className="bg-white text-brand-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-200 transition-all shadow-lg hover:shadow-white/10"
+              className="bg-white text-brand-900 px-5 py-2.5 rounded-full text-sm font-bold hover:bg-slate-200 transition-all shadow-lg hover:shadow-white/10 [touch-action:manipulation]"
             >
               Start Recovery
             </a>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button onClick={toggleMenu} className="md:hidden text-white p-2 z-50" aria-label="Toggle Menu">
+          <button onClick={toggleMenu} className="md:hidden text-white p-2 z-50 [touch-action:manipulation]" aria-label="Toggle Menu">
             {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
-
-        {/* Mobile Nav Overlay - Fixed Background visibility and Hit Testing */}
-        <div className={`fixed inset-0 bg-[#0f172a]/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={`#${link.href}`}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className="text-xl font-medium text-white hover:text-brand-accent"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a 
-            href="#recovery-form"
-            onClick={(e) => scrollToSection(e, 'recovery-form')}
-            className="bg-brand-blue text-white px-8 py-3 rounded-full text-lg font-bold shadow-xl shadow-brand-blue/20"
-          >
-            Start Recovery
-          </a>
-        </div>
       </nav>
+
+      {/* Mobile Nav Overlay - Moved outside <nav> to fix background bug */}
+      <div className={`fixed inset-0 bg-[#0f172a]/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center gap-8 transition-all duration-300 ${isMenuOpen ? 'opacity-100 visible pointer-events-auto' : 'opacity-0 invisible pointer-events-none'}`}>
+        {navLinks.map((link) => (
+          <a 
+            key={link.name} 
+            href={`#${link.href}`}
+            onClick={(e) => scrollToSection(e, link.href)}
+            className="text-xl font-medium text-white hover:text-brand-accent [touch-action:manipulation]"
+          >
+            {link.name}
+          </a>
+        ))}
+        <a 
+          href="#recovery-form"
+          onClick={(e) => scrollToSection(e, 'recovery-form')}
+          className="bg-brand-blue text-white px-8 py-3 rounded-full text-lg font-bold shadow-xl shadow-brand-blue/20 [touch-action:manipulation]"
+        >
+          Start Recovery
+        </a>
+      </div>
 
       {/* Main Content */}
       <main className="flex-grow">

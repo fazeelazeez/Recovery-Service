@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ openLegal }) => {
             </p>
             {/* Social Icons - Only Email is kept as it is the primary verified channel */}
             <div className="flex gap-4">
-              <a href="mailto:fazeelazeez.in@gmail.com" className="w-10 h-10 bg-brand-900 rounded-full flex items-center justify-center text-slate-400 hover:bg-brand-blue hover:text-white transition-all border border-brand-800">
+              <a href="mailto:fazeelazeez.in@gmail.com" className="w-10 h-10 bg-brand-900 rounded-full flex items-center justify-center text-slate-400 hover:bg-brand-blue hover:text-white transition-all border border-brand-800 [touch-action:manipulation]">
                 <Mail className="w-4 h-4" />
               </a>
             </div>
@@ -35,10 +35,10 @@ export const Footer: React.FC<FooterProps> = ({ openLegal }) => {
           <div>
             <h3 className="text-white font-bold mb-6">Quick Links</h3>
             <ul className="space-y-4 text-sm text-slate-400">
-              <li><a href="#services" className="hover:text-brand-accent transition-colors">Services</a></li>
-              <li><a href="#process" className="hover:text-brand-accent transition-colors">How It Works</a></li>
-              <li><a href="#pricing" className="hover:text-brand-accent transition-colors">Pricing</a></li>
-              <li><a href="#testimonials" className="hover:text-brand-accent transition-colors">Success Stories</a></li>
+              <li><a href="#services" className="hover:text-brand-accent transition-colors [touch-action:manipulation]">Services</a></li>
+              <li><a href="#process" className="hover:text-brand-accent transition-colors [touch-action:manipulation]">How It Works</a></li>
+              <li><a href="#pricing" className="hover:text-brand-accent transition-colors [touch-action:manipulation]">Pricing</a></li>
+              <li><a href="#testimonials" className="hover:text-brand-accent transition-colors [touch-action:manipulation]">Success Stories</a></li>
             </ul>
           </div>
 
@@ -46,10 +46,10 @@ export const Footer: React.FC<FooterProps> = ({ openLegal }) => {
           <div>
             <h3 className="text-white font-bold mb-6">Legal</h3>
             <ul className="space-y-4 text-sm text-slate-400">
-              <li><button onClick={() => openLegal('privacy')} className="hover:text-brand-accent transition-colors text-left">Privacy Policy</button></li>
-              <li><button onClick={() => openLegal('terms')} className="hover:text-brand-accent transition-colors text-left">Terms & Conditions</button></li>
-              <li><button onClick={() => openLegal('refund')} className="hover:text-brand-accent transition-colors text-left">Refund Policy</button></li>
-              <li><button onClick={() => openLegal('disclaimer')} className="hover:text-brand-accent transition-colors text-left">Disclaimer</button></li>
+              <li><button onClick={() => openLegal('privacy')} className="hover:text-brand-accent transition-colors text-left [touch-action:manipulation]">Privacy Policy</button></li>
+              <li><button onClick={() => openLegal('terms')} className="hover:text-brand-accent transition-colors text-left [touch-action:manipulation]">Terms & Conditions</button></li>
+              <li><button onClick={() => openLegal('refund')} className="hover:text-brand-accent transition-colors text-left [touch-action:manipulation]">Refund Policy</button></li>
+              <li><button onClick={() => openLegal('disclaimer')} className="hover:text-brand-accent transition-colors text-left [touch-action:manipulation]">Disclaimer</button></li>
             </ul>
           </div>
 
