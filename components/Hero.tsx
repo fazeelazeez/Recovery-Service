@@ -47,8 +47,8 @@ export const Hero: React.FC = () => {
               Contact within 2–3 days for best recovery success.
             </p>
             
-            {/* Buttons Container with Higher Z-Index Fix for Mobile */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10 relative z-40">
+            {/* Buttons Container */}
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-10">
               <a 
                 href="#recovery-form" 
                 onClick={scrollToRecovery}
