@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/ytcid",
+      "destination": "https://yt-cid.vercel.app/ytcid"
+    },
+    {
+      "source": "/ytcid/:path*",
+      "destination": "https://yt-cid.vercel.app/ytcid/:path*"
+    }
+  ]
+}
